@@ -25,10 +25,8 @@ public class NameSpecialist extends AppCompatActivity {
 
     public final static String EXTRA_NAME= "name";
     public static String EXTRA_TEXT_ID = "id";
-    public static final String[] specialty = {"кардиолог", "стоматолог","терапевт"};
     private DatabaseHelper db;
     private SQLiteDatabase mdb;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +34,9 @@ public class NameSpecialist extends AppCompatActivity {
         setContentView(R.layout.activity_name_specialist);
         String text = getIntent().getExtras().getString(EXTRA_TEXT_ID);
         int position = getIntent().getExtras().getInt(EXTRA_NAME);
-        ArrayList<String> names = new ArrayList<>();
         ListView listView = (ListView) findViewById(R.id.list_names);
+        String[] strings = new String[]{"кардиолог", "стоматолог", "терапевт"};
         db = new DatabaseHelper(this);
-        setContentView(R.layout.activity_authorization);
-        Button button = (Button) findViewById(R.id.buttonAuthorization);
-        TextView textView = (TextView) findViewById(R.id.textView);
-
         try {
             db.updateDataBase();
         } catch (IOException mIOException) {
@@ -54,22 +48,28 @@ public class NameSpecialist extends AppCompatActivity {
         } catch (SQLiteException mSQLException) {
             throw mSQLException;
         }
-
-
-        String query =  "SELECT first_name, last_name " +
+        ArrayList<String> names = new ArrayList<>();
+        String query =  "SELECT id_doctors, last_name, first_name, middle_name " +
                 "FROM personal, doctors " +
-                "WHERE  personal.id_personal = doctors.id_doctors AND type = " + specialty[position];
-
+                "WHERE  personal.id_personal = doctors.id_doctors AND type = '" + strings[position] + "'" ;
 
         Cursor cursor = mdb.rawQuery(query, null);
+        ArrayList<String> id_doctors = new ArrayList<>();
         while (cursor.moveToNext()) {
-            String name = cursor.getString(0);
-            names.add(name);
+            String id_doctor = cursor.getString(0);
+            String lname = cursor.getString(1);
+            String fname = cursor.getString(2);
+            String mname = cursor.getString(3);
+            String result = lname + "  " + fname + "  " + mname;
+            names.add(result);
+            id_doctors.add(id_doctor);
         }
+        final ArrayList<String> f_doctors = id_doctors;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, names);
         listView.setAdapter(adapter);
+
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView,
                                     View itemView,
@@ -77,55 +77,13 @@ public class NameSpecialist extends AppCompatActivity {
                                     long id) {
                 Intent intent = new Intent(NameSpecialist.this, Visit.class);
                 intent.putExtra(Visit.EXTRA_SPECIALIST,pos);
+                intent.putExtra(Visit.EXTRA_SPECIALIST_ID, f_doctors.get(pos));
                 intent.putExtra(Visit.EXTRA_TEXT_ID,id);
                 startActivity(intent);
             }
         };
         listView.setOnItemClickListener(itemClickListener);
 
-        cursor.close();
-        db.close();
-
-        /*SQLiteOpenHelper clinicDatabaseHelper = new DatabaseEmpHelper(this);
-        try {
-            db = clinicDatabaseHelper.getReadableDatabase();
-            //получить талицу из всех специалистов выбранного типа
-            cursor = db.query("EMPLOYEES",
-                    new String[]{"LAST_NAME", "FIRST_NAME"},
-                    "TYPE = ?",
-                    new String[]{specialty[position]},
-                    null, null, null);
-
-
-            while (cursor.moveToNext()) {
-                String name = cursor.getString(0);
-                names.add(name);
-            }
-
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, names);
-            listView.setAdapter(adapter);
-
-
-            AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
-                public void onItemClick(AdapterView<?> listView,
-                                        View itemView,
-                                        int pos,
-                                        long id) {
-                    Intent intent = new Intent(NameSpecialist.this, Visit.class);
-                    intent.putExtra(Visit.EXTRA_SPECIALIST,pos);
-                    intent.putExtra(Visit.EXTRA_TEXT_ID,id);
-                    startActivity(intent);
-                }
-            };
-            listView.setOnItemClickListener(itemClickListener);
-
-
-        } catch (SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
-        }*/
     }
 
 

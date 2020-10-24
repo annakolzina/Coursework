@@ -21,7 +21,9 @@ public class Visit extends AppCompatActivity {
 
     public final static String EXTRA_SPECIALIST = "name";
     public static String EXTRA_TEXT_ID = "id";
-    private SQLiteDatabase db;
+    public final static String EXTRA_SPECIALIST_ID = "id_sp";
+    private DatabaseHelper db;
+    private SQLiteDatabase mdb;
 
     private Cursor cursor;
 
@@ -29,19 +31,21 @@ public class Visit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
+        int _idPat = getIntent().getExtras().getInt(EXTRA_TEXT_ID);
+        int _idEmp = getIntent().getExtras().getInt(EXTRA_SPECIALIST_ID);
 
     }
 
     public void onClick44(View view) {
-/*        SQLiteOpenHelper clinicDatabaseHelper = new DatabaseVisitHelper(this);
-        db = clinicDatabaseHelper.getWritableDatabase();
-        int _idEmp = getIntent().getExtras().getInt(EXTRA_SPECIALIST);
         int _idPat = getIntent().getExtras().getInt(EXTRA_TEXT_ID);
+        int _idEmp = getIntent().getExtras().getInt(EXTRA_SPECIALIST_ID);
         EditText editText = (EditText) findViewById(R.id.editTextDate);
+
+        mdb.execSQL(ROW1);
         insertVisits(db, _idPat, _idEmp, editText.toString());
         TextView textView = (TextView) findViewById(R.id.textView4);
         Intent intent = new Intent(Visit.this, Enter.class);
-        startActivity(intent);*/
+        startActivity(intent);
 
     }
 

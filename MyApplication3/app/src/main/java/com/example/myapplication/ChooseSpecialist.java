@@ -12,7 +12,6 @@ public class ChooseSpecialist extends AppCompatActivity {
 
     public static String EXTRA_TEXT_ID = "id";
     public String id ="";
-    private static final String[] specialty = {"кардиолог", "стоматолог","терапевт"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
