@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="id_participant">Введите идентификатор пользователя</string>
+    <string name="next">Продолжить</string>
+    <string name="print">Введите 3 цифры без пробелов</string>
+    <string name="reference">Получить справку</string>
+    <string name="result">Узнать результаты исследований</string>
+    <string name="specialist">Запись к специалисту</string>
+    <string name="prevention">Профилактический осмотр</string>
+    <string name="help">Требуется экстренная помощь</string>
+    <string name="back">Вернуться назад</string>
+    <string-array name="options">
+        <item>Кардиолог</item>
+        <item>Стоматолог</item>
+        <item>Терапевт</item>
+    </string-array>
+    <string name="sp_choose">Выберите тип специалиста</string>
+    <string name="help_text">Для оказания экстренной помощи, обратитесь в кабинет 117 или по телефону 03</string>
+</resources>
