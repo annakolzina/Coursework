@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Analyzes"></activity>
+        <activity android:name=".Analyzes_result"></activity>
+        <activity android:name=".Analyzes" />
         <activity android:name=".Documents" />
         <activity android:name=".Enter" />
         <activity android:name=".Visit" />

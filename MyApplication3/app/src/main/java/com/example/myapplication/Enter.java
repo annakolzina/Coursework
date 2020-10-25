@@ -68,14 +68,12 @@ public class Enter extends AppCompatActivity {
 
 
         Cursor cursor = mdb.rawQuery(query2, null);
-        System.out.println("***************************enter enter");
-        System.out.println(id);
-        System.out.println("***************************");
+
         cursor.moveToFirst();
         while (cursor.moveToNext())
             System.out.println(
                     cursor.getString(0) + " " + cursor.getString(1) + " " +
-                    cursor.getString(2));
+                    cursor.getString(2) + "  "+ cursor.getString(3) +"  " + cursor.getString(4));
 
 
     }

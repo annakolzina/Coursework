@@ -71,9 +71,6 @@ public class NameSpecialist extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, names);
         listView.setAdapter(adapter);
         final String id_pat2 = id_pat;
-        System.out.println("***************************pat2pat2");
-        System.out.println(id_pat2);
-        System.out.println("***************************");
 
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView,

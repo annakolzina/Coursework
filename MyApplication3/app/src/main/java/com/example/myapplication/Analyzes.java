@@ -2,10 +2,13 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -42,16 +45,38 @@ public class Analyzes extends AppCompatActivity {
 
 
         Cursor cursor = mdb.rawQuery(query, null);
+        final String id_pat = id;
+        final ArrayList<String> data_array = new ArrayList<>();
+        final ArrayList<String> diagnosis_array = new ArrayList<>();
         while (cursor.moveToNext()) {
             String data = cursor.getString(0);
             String diagnosis = cursor.getString(1);
             String result = data + "  " + diagnosis;
             names.add(result);
+            data_array.add(data);
+            diagnosis_array.add(diagnosis);
         }
+
+        final ArrayList<String> final_data_array = data_array;
+        final ArrayList<String> final_diagnosis_array = diagnosis_array;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, names);
         listView.setAdapter(adapter);
+
+        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> listView,
+                                    View itemView,
+                                    int pos,
+                                    long id) {
+                Intent intent = new Intent(Analyzes.this, Analyzes_result.class);
+                intent.putExtra(Analyzes_result.EXTRA_DIAGNOSIS_ID, diagnosis_array.get(pos));
+                intent.putExtra(Analyzes_result.EXTRA_DATA_ID, data_array.get(pos));
+                intent.putExtra(Analyzes_result.EXTRA_TEXT_ID,id_pat);
+                startActivity(intent);
+            }
+        };
+        listView.setOnItemClickListener(itemClickListener);
 
 
     }
