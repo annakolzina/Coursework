@@ -21,7 +21,7 @@ public class Authorization extends AppCompatActivity {
     public static String EXTRA_TEXT_ID = "id";
     private DatabaseHelper db;
     private SQLiteDatabase mdb;
-    public String id ="";
+    public String id = "";
     public static boolean status;
 
     @Override

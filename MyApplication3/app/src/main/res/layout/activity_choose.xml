@@ -14,6 +14,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginTop="16dp"
         android:text="@string/reference"
+        android:onClick="onClick4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/result"
         app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="onClick5"
         app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toTopOf="parent" />

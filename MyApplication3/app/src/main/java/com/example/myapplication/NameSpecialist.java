@@ -32,7 +32,7 @@ public class NameSpecialist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_specialist);
-        String text = getIntent().getExtras().getString(EXTRA_TEXT_ID);
+        String id_pat = getIntent().getExtras().getString(EXTRA_TEXT_ID);
         int position = getIntent().getExtras().getInt(EXTRA_NAME);
         ListView listView = (ListView) findViewById(R.id.list_names);
         String[] strings = new String[]{"кардиолог", "стоматолог", "терапевт"};
@@ -48,6 +48,7 @@ public class NameSpecialist extends AppCompatActivity {
         } catch (SQLiteException mSQLException) {
             throw mSQLException;
         }
+
         ArrayList<String> names = new ArrayList<>();
         String query =  "SELECT id_doctors, last_name, first_name, middle_name " +
                 "FROM personal, doctors " +
@@ -69,6 +70,10 @@ public class NameSpecialist extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, names);
         listView.setAdapter(adapter);
+        final String id_pat2 = id_pat;
+        System.out.println("***************************pat2pat2");
+        System.out.println(id_pat2);
+        System.out.println("***************************");
 
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView,
@@ -78,7 +83,7 @@ public class NameSpecialist extends AppCompatActivity {
                 Intent intent = new Intent(NameSpecialist.this, Visit.class);
                 intent.putExtra(Visit.EXTRA_SPECIALIST,pos);
                 intent.putExtra(Visit.EXTRA_SPECIALIST_ID, f_doctors.get(pos));
-                intent.putExtra(Visit.EXTRA_TEXT_ID,id);
+                intent.putExtra(Visit.EXTRA_TEXT_ID,id_pat2);
                 startActivity(intent);
             }
         };

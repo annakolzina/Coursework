@@ -11,14 +11,17 @@ import android.widget.ListView;
 public class ChooseSpecialist extends AppCompatActivity {
 
     public static String EXTRA_TEXT_ID = "id";
-    public String id ="";
+    public String id_pat ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_specialist);
         String text = getIntent().getExtras().getString(EXTRA_TEXT_ID);
-        id = text;
+        id_pat = text;
+        System.out.println("***************************");
+        System.out.println(id_pat);
+        System.out.println("***************************");
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView,
                                     View itemView,
@@ -26,7 +29,7 @@ public class ChooseSpecialist extends AppCompatActivity {
                                     long id) {
                     Intent intent = new Intent(ChooseSpecialist.this, NameSpecialist.class);
                     intent.putExtra(NameSpecialist.EXTRA_NAME,position);
-                    intent.putExtra(NameSpecialist.EXTRA_TEXT_ID,id);
+                    intent.putExtra(NameSpecialist.EXTRA_TEXT_ID,id_pat);
                     startActivity(intent);
             }
         };

@@ -2,50 +2,83 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Enter extends AppCompatActivity {
 
-    private SQLiteDatabase db;
+    private DatabaseHelper db;
     private Cursor cursor;
-
-    private TextView textView = (TextView) findViewById(R.id.textView5);
+    public final static String EXTRA_TEXT_DATA = "name";
+    public static String EXTRA_TEXT_ID = "id";
+    public static String EXTRA_TEXT_TIME = "id_time";
+    public final static String EXTRA_SPECIALIST_ID = "specialist_id";
+    private SQLiteDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
+        TextView textView = (TextView) findViewById(R.id.textEnter);
+
+
+        String id = getIntent().getExtras().getString(EXTRA_TEXT_ID);
+        String id_sp = getIntent().getExtras().getString(EXTRA_SPECIALIST_ID);
+        String data = getIntent().getExtras().getString(EXTRA_TEXT_DATA);
+        String time = getIntent().getExtras().getString(EXTRA_TEXT_TIME);
+
+
+
+
+        db = new DatabaseHelper(this);
         try {
-            //получить талицу из всех специалистов выбранного типа
-            cursor = db.query("VISITS",
-                    new String[]{"DATA"},
-                    "_id=?",
-                    new String[]{Integer.toString(1)},
-                    null, null, null);
-
-
-            if(cursor.moveToFirst()){
-                String aa = cursor.getString(0);
-                textView.setText(aa);
-            }
-
-
-
-        } catch (SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
+            db.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
         }
-        cursor.close();
-        db.close();
+
+        try {
+            mdb = db.getWritableDatabase();
+        } catch (SQLiteException mSQLException) {
+            throw mSQLException;
+        }
+
+
+        String query =  "INSERT INTO visits(code_patient, id_doctors, id_data, id_time) "+
+                        "VALUES(" + id + ", " + id_sp  + ", '" + data + "', '" + time + "');";
+        mdb.execSQL(query);
+
+
+        String query2 = "SELECT * " +
+                        "FROM visits;";
+
+
+        Cursor cursor = mdb.rawQuery(query2, null);
+        System.out.println("***************************enter enter");
+        System.out.println(id);
+        System.out.println("***************************");
+        cursor.moveToFirst();
+        while (cursor.moveToNext())
+            System.out.println(
+                    cursor.getString(0) + " " + cursor.getString(1) + " " +
+                    cursor.getString(2));
+
+
     }
+
+
 }

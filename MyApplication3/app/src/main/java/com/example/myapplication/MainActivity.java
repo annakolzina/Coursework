@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Authorization.EXTRA_TEXT_ID, text.getText().toString());
         startActivity(intent);
 
+
+
     }
 
 }
