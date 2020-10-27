@@ -15,5 +15,7 @@
         <item>Терапевт</item>
     </string-array>
     <string name="sp_choose">Выберите тип специалиста</string>
+    <string name="sp_choose2">Выберите специалиста</string>
+    <string name="sp_time">Выберите нужное время</string>
     <string name="help_text">Для оказания экстренной помощи, обратитесь в кабинет 117 или по телефону 03</string>
 </resources>

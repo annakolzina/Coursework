@@ -93,7 +93,13 @@ public class Visit extends AppCompatActivity {
             }
         };
         listView.setOnItemClickListener(itemClickListener);
-
+        cursor.close();
+        mdb.close();
+        db.close();
     }
 
+    public void onClick(View view){
+        super.finish();
     }
+
+}

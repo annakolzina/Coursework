@@ -85,12 +85,14 @@ public class NameSpecialist extends AppCompatActivity {
             }
         };
         listView.setOnItemClickListener(itemClickListener);
+        cursor.close();
+        mdb.close();
+        db.close();
 
     }
 
 
-    /*public void onDestroy(){
-        super.onDestroy();
-        cursor.close();
-        db.close();    */
+    public void onClick(View view){
+        super.finish();
+    }
 }

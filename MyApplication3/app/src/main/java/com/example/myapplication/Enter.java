@@ -60,7 +60,11 @@ public class Enter extends AppCompatActivity {
 
         String query =  "INSERT INTO visits(code_patient, id_doctors, id_data, id_time) "+
                         "VALUES(" + id + ", " + id_sp  + ", '" + data + "', '" + time + "');";
+
+
+
         mdb.execSQL(query);
+        textView.setText("Вы успешно записались на " + data + "  в  " + time);
 
 
         String query2 = "SELECT * " +
@@ -76,6 +80,10 @@ public class Enter extends AppCompatActivity {
                     cursor.getString(2) + "  "+ cursor.getString(3) +"  " + cursor.getString(4));
 
 
+
+        cursor.close();
+        mdb.close();
+        db.close();
     }
 
 

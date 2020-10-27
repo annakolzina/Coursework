@@ -80,4 +80,8 @@ public class Analyzes extends AppCompatActivity {
 
 
     }
+
+    public void onClick(View view){
+        super.finish();
+    }
 }

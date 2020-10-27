@@ -4,11 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Documents" >
+    tools:context=".NameSpecialist" >
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:onClick="onClick"
+        android:text="@string/back" />
 
     <ListView
         android:id="@+id/list_document"
         android:layout_width="match_parent"
-        android:layout_height="747dp" />
-
+        android:layout_height="wrap_content"
+        android:entries="@array/options" />
 </LinearLayout>
